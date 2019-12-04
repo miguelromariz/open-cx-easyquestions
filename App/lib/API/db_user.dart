@@ -18,15 +18,20 @@ void getUserFromDatabase(AuthNotifier authNotifier, String authID) async {
 }
 
 
-registerUser(FirebaseUser firebaseUser, String fullname, String age, bool isSpeaker) async {
+registerUser(FirebaseUser firebaseUser, String fullname, String age, String type) async {
 
   //TODO: Verificacao com regex para age ----------- age hardcoded
 
   User user;
-  if(isSpeaker)
+
+  if(type == 'Admin')
+    user = new User(permission: 2, avatar: null,fullname: fullname,age: 21, description: null, authID: firebaseUser.uid);
+  if(type == 'Speaker')
     user = new User(permission: 1, avatar: null, fullname: fullname, age: 20, description: null, authID: firebaseUser.uid);
-  else
+  if(type == 'Normal')
     user = new User(permission: 0, avatar: null, fullname: fullname, age: 20, description: null, authID: firebaseUser.uid);
+
+
 
 
   CollectionReference userRef = await Firestore.instance.collection('Users');

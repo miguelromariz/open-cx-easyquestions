@@ -34,7 +34,7 @@ login(String email, String password, AuthNotifier authNotifier) async {
 
 }
 
-register(String fullname, String username, String password, String email, String age, bool isSpeaker) async{
+register(String fullname, String username, String password, String email, String age, String type) async{
   AuthResult authResult = await FirebaseAuth.instance
       .createUserWithEmailAndPassword(email: email, password: password)
       .catchError((onError) => print (onError.hashCode)
@@ -55,7 +55,7 @@ register(String fullname, String username, String password, String email, String
  //         FirebaseUser currentUser = await FirebaseAuth.instance.currentUser();
  //        authNotifier.setUser(currentUser);
 
-          registerUser(firebaseUser, fullname, age, isSpeaker);
+          registerUser(firebaseUser, fullname, age, type);
         }
 
     }

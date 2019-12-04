@@ -1,4 +1,5 @@
 import 'package:app/Model/review.dart';
+import 'package:app/Model/review.dart' as prefix0;
 import 'package:app/Notifiers/notifier_review.dart';
 import 'package:app/Notifiers/notifier_talk.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -21,7 +22,6 @@ addReview(TalkNotifier talkNotifier, Review review) async {
   updateTalk(talkNotifier);
 
 }
-
 
 loadReviews(ReviewNotifier reviewNotifier) async {
   QuerySnapshot snapshot = await Firestore.instance.collection('Reviews').getDocuments();

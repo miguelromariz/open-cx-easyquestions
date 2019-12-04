@@ -20,6 +20,8 @@ class RegisterState extends State<Register>
   String fullname, username, password, email;
   String age;
   bool isSpeaker=false;
+  bool isMod=false;
+  String type = 'Normal';
 
   @override
   void initState() {
@@ -115,18 +117,20 @@ class RegisterState extends State<Register>
                                 ),
                                 onSaved: (input) => age = input,
                               ),
-                              CheckboxListTile(
-                                  title: Text("Register as a speaker?", style:
-                                    TextStyle(
-                                      color: Colors.black54,
 
-                                    ),),
-                                  value: isSpeaker,
-                                  onChanged: (bool ans) {
-                                    setState(() {
-                                      isSpeaker = ans;
-                                    });
-                                  }
+                              DropdownButton<String>(
+                                value: type,
+                                onChanged: (String newValue){
+                                  setState(() {
+                                    type = newValue;
+                                  });
+                                },
+                                items: <String> ['Normal','Speaker','Admin'].map<DropdownMenuItem<String>>((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value)
+                                  );
+                                }).toList(),
                               ),
                               SizedBox(height: 20.0,),
                               Row(
@@ -173,7 +177,7 @@ class RegisterState extends State<Register>
     }
     _regFormKey.currentState.save();
 
-    register(fullname, username, password, email, age, isSpeaker);
+    register(fullname, username, password, email, age, type);
 
     Navigator.pop(context, ); //Nao faz login imediatamente
   }

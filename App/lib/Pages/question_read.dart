@@ -6,6 +6,7 @@ import 'package:app/Notifiers/notifier_auth.dart';
 import 'package:app/Notifiers/notifier_question.dart';
 import 'package:app/Notifiers/notifier_talk.dart';
 import 'package:app/Pages/answer_write.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -53,7 +54,18 @@ class _ReadQuestionState extends State<ReadQuestion>{
           isThreeLine: true,
           title: Text(questionsToDisplay[index].body),
           subtitle: (questionsToDisplay[index].answer != null ? Text(questionsToDisplay[index].answer) : Text("This question doesnt have an answer yet.")),
-          trailing: (authNotifier.user.permission > 0 && (talkNotifier.currentTalk.speakerID == authNotifier.firebaseUser.uid) ) ? (enableAnswer(questionsToDisplay[index], questionNotifier, context)) : {},
+          trailing:
+          (IconButton(
+            icon: Icon(Icons.delete),
+            onPressed: () async {
+              await Firestore.instance.collection('Questions').document(questionsToDisplay[index].idDoc).delete();
+              setState(() {
+
+              });
+            }
+          ))
+
+          //(authNotifier.user.permission == 1 && (talkNotifier.currentTalk.speakerID == authNotifier.firebaseUser.uid) ) ? (enableAnswer(questionsToDisplay[index], questionNotifier, context)) : {},
         );
       },
 

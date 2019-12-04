@@ -21,6 +21,7 @@ class Talk{
 
   Talk({this.idDoc, this.name, this.body, this.schedule, this.questionIDs, this.reviewsIDs, this.speakerID});
 
+
   Talk.fromMap(Map<dynamic, dynamic> data) {
     idDoc = data['idDoc'];
     name = data['Name'];
